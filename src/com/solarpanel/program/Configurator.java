@@ -2,13 +2,16 @@ package com.solarpanel.program;
 
 import java.util.Scanner;
 
+//Handles user interaction
 public class Configurator {
     private Scanner scanner = new Scanner(System.in);
 
+    //Runs the loop of the configurator 
     public void run() {
         boolean running = true;
 
         while (running) {
+        	//Show panel choices
             System.out.println("\nWelcome to the Solar Panel Configurator!");
             System.out.println("Choose your solar panel size:");
             System.out.println("1. Small");
@@ -17,27 +20,27 @@ public class Configurator {
 
             int panelChoice = scanner.nextInt();
             SolarPanel panel = getPanelByChoice(panelChoice);
-
+            //Asks how many panels
             System.out.println("How many panels?");
             int quantity = scanner.nextInt();
 
             System.out.println("Choose your battery size:");
             System.out.println("1. Small");
             System.out.println("2. Large");
-
+            //Shows battery choices
             int batteryChoice = scanner.nextInt();
             Battery battery = getBatteryByChoice(batteryChoice);
-
+            //Calculates cost and power
             double totalPower = PowerCalculator.calculateTotalPower(panel, quantity);
             double totalCost = CostCalculator.calculateTotalCost(panel, quantity, battery);
-
+            //Display summary
             System.out.println("\nYour Configuration:");
             System.out.println(panel);
             System.out.println("Quantity: " + quantity);
             System.out.println(battery);
             System.out.printf("Total Power: %.2f kWh/day\n", totalPower);
             System.out.printf("Total Cost: $%.2f\n", totalCost);
-
+            //Ask if user wants to reconfigure 
             System.out.println("\nWould you like to try another configuration? (y/n)");
             String again = scanner.next();
             running = again.equalsIgnoreCase("y");
@@ -45,7 +48,7 @@ public class Configurator {
 
         System.out.println("Thank you for using the configurator!");
     }
-
+    //Returns a SolarPanel object based on the users selection
     private SolarPanel getPanelByChoice(int choice) {
         switch (choice) {
             case 1:
@@ -59,7 +62,7 @@ public class Configurator {
                 return new SolarPanel("Small", 1.5, 200);
         }
     }
-
+    //Returns a Battery object based on the users selection
     private Battery getBatteryByChoice(int choice) {
         switch (choice) {
             case 1:
